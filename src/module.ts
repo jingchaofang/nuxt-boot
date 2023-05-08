@@ -10,7 +10,11 @@ const Extension = [".mobile", ".pc"];
 const correctPage = (page: NuxtPage) => {
   Extension.forEach((item) => {
     page.name = page.name && page.name.replace(item, "");
-    page.path = page.path && page.path.replace(item, "");
+    if(page.name == 'index') {
+      page.path = "/"
+    } else {
+      page.path = page.path && page.path.replace(item, "");
+    }
   });
 };
 
@@ -26,6 +30,7 @@ export default defineNuxtModule<ModuleOptions>({
       pages.forEach((page) => {
         correctPage(page);
       });
+      console.log(pages);
     },
   },
   setup(moduleOptions, nuxt) {
